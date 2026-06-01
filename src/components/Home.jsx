@@ -9,31 +9,37 @@ const Home = () => {
   return (
     <>
       <Header />
-      
-      <div className="d-flex justify-content-center gap-4 mt-4 mb-4">
-        
+
+      <div className="container mt-4">
+      <div className="row">
+
+      <div className="col-12 col-md-4 mb-4">
+
         <CardPizza
           name="Napolitana"
           price={5950}
           ingredients={["mozzarella", "tomates", "jamón", "orégano"]}
           img={pizzaNapolitana}
         />
-
+      </div>
+      <div className="col-12 col-md-4 mb-4">
         <CardPizza
           name="Española"
           price={6950}
           ingredients={["mozzarella", "gorgonzola", "parmesano", "provolone"]}
           img={pizzaEspañola}
         />
-
+      </div>
+      <div className="col-12 col-md-4 mb-4">
         <CardPizza
           name="Pepperoni"
           price={6950}
           ingredients={["mozzarella", "pepperoni", "orégano"]}
           img={pizzaPepperoni}
         />
-
       </div>
+    </div >
+    </div >
     </>
   );
 };
