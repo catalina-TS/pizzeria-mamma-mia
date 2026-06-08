@@ -1,26 +1,24 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './components/Navbar';
-// import Home from './components/Home';
-import Footer from './components/Footer';
-// import Register from './components/Register';
-import Login from './components/Login';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import Navbar from "./components/Navbar"; 
+import Cart from "./components/Cart"; 
+import Footer from "./components/Footer"; 
+ import Home from "./components/Home"; 
 
-function App() {
+// import LoginPage from "./components/Login"; 
+// import RegisterPage from "./components/Register";
+
+const App = () => { 
   return (
-  
-    <div className="d-flex flex-column min-vh-100">
-      <Navbar />
+    <div> 
+      <Navbar /> 
+       <Home />  
+      {/* <RegisterPage /> */} 
+      {/* <LoginPage /> */} 
       
-      <div className="flex-grow-1">
-      {/* <Home /> */}
-      {/* <Register /> */}
-      <Login />
-      </div>
-      
+      <Cart /> 
       <Footer />
-    </div>
+    </div> 
   );
-}
+}; 
 
 export default App;
-

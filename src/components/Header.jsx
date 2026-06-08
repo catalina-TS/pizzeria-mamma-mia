@@ -1,11 +1,11 @@
-import headerImage from '../assets/img/Header.jpg'; 
+ 
 
 const Header = () => {
     return (
       <div 
         className="text-center p-5 text-white"
         style={{
-            backgroundImage: `url(${headerImage})`,
+            backgroundImage: `url("/img/Header.jpg")`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundColor: 'rgba(0, 0, 0, 0.7)', 
