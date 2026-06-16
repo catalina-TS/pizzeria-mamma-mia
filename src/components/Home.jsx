@@ -6,7 +6,7 @@ const Home = () => {
   const [pizzas, setPizzas] = useState ([]);
 
   const getPizzas = async () => {
-    const res = await fetich ("http://localhost:5000/api/pizzas");
+    const res = await fetch ("http://localhost:5000/api/pizzas");
     const data = await res.json(); 
     setPizzas(data);
   };
@@ -16,7 +16,7 @@ const Home = () => {
 
   return (
     <>
-    <header />
+    <Header />
     <div className="container mt-4">
       <div className="row">
         {pizzas.map((pizza) => (
@@ -24,7 +24,7 @@ const Home = () => {
             <CardPizza
             name={pizza.name}
             price={pizza.price}
-            ingredientes={pizza.ingredients}
+            ingredients={pizza.ingredients}
             img={pizza.img}
             />
             </div>
