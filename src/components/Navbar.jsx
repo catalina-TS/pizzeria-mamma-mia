@@ -1,45 +1,54 @@
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import { formatNumber } from '../utils/formatNumber';
+import { Link } from 'react-router-dom';
 
-const NavbarApp = () => {
-  const total = 25000;
+const Navbar = () => {
+
+  const total = 19190;
   const token = false;
 
   return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container">
 
-    <Navbar bg="dark" variant="dark" expand="lg" className="px-3 py-2">
-      <Container fluid>
-        <Navbar.Brand href="#">¡Pizzería Mamma Mia!</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto mt-2 mt-lg-0">
-            <Button variant="outline-light" className="me-2 mb-2 mb-lg-0 text-white">🍕 Home</Button>
+        <Link className="navbar-brand" to="/">Pizzería Mamma Mia!</Link>
+        
+        <div className="collapse navbar-collapse d-flex justify-content-between">
+          <div className="navbar-nav">
+            
+            <Link to="/" className="btn btn-outline-light text-white border-0 me-2">
+              🍕 Inicio
+            </Link>
+            
 
             {token ? (
               <>
-                <Button variant="outline-light" className="me-2 mb-2 mb-lg-0 text-white">🔓 Profile</Button>
-                <Button variant="outline-light" className="mb-2 mb-lg-0 text-white">🔒 Logout</Button>
+                <Link to="/profile" className="btn btn-outline-light text-white border-0 me-2">
+                  🔓 Perfil
+                </Link>
+
+                <button className="btn btn-outline-light text-white border-0 me-2">
+                  🔒 Cerrar Sesión
+                </button>
               </>
             ) : (
               <>
-                <Button variant="outline-light" className="me-2 mb-2 mb-lg-0 text-white">🔐 Login</Button>
-                <Button variant="outline-light" className="mb-2 mb-lg-0 text-white">🔐 Register</Button>
+                <Link to="/login" className="btn btn-outline-light text-white border-0 me-2">
+                  🔐 Iniciar Sesión
+                </Link>
+                <Link to="/register" className="btn btn-outline-light text-white border-0 me-2">
+                  🔐 Registrarse
+                </Link>
               </>
             )}
-          </Nav>
-
-          <Nav>
-            <Button variant="outline-info" className="text-info mt-2 mt-lg-0">
-              🛒 Total: ${formatNumber(total)}
-            </Button>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          </div>
+          
+          <Link to="/cart" className="btn btn-outline-info">
+            🛒 Total: ${total.toLocaleString("es-CL")}
+          </Link>
+          
+        </div>
+      </div>
+    </nav>
   );
 };
 
-export default NavbarApp;
+export default Navbar;

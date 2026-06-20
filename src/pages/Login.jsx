@@ -26,7 +26,7 @@ const Login = () => {
     };
     return (
         <div className="container mt-5">
-            <h2>Login</h2>
+            <h2>Iniciar Sesión</h2>
             <form onSubmit={validarDatos}>
                 {error ? <p className="text-danger">{error}</p> : null}
                 {success ? <p className="text-success">{success}</p> : null}
