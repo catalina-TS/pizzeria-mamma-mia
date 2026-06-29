@@ -2,14 +2,13 @@ import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 const Cart = () => {
-  // Sacamos todo lo que necesitamos de la bodega
+
   const { cart, increaseQuantity, decreaseQuantity, total } = useContext(CartContext);
 
   return (
     <div className="container mt-5">
       <h2>Detalles del pedido:</h2>
       
-      {/* Si el carrito está vacío, mostramos un mensaje */}
       {cart.length === 0 ? (
         <p className="mt-4">El carrito está vacío. ¡Agrega unas ricas pizzas!</p>
       ) : (
