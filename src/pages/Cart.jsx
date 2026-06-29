@@ -1,60 +1,39 @@
-import { useState } from 'react';
-import { pizzaCart } from '../pizzas';
-import { formatNumber } from '../utils/formatNumber';
-import Button from 'react-bootstrap/Button';
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
 
 const Cart = () => {
-    const [cart, setCart] = useState(pizzaCart);
-    const increaseCount = (id) => {
-        const newCart = cart.map((pizza) => {
-            if (pizza.id === id) {
-                return { ...pizza, count: pizza.count + 1 };
-            }
-            return pizza;
-        });
-        setCart(newCart);
-    };
+  // Sacamos todo lo que necesitamos de la bodega
+  const { cart, increaseQuantity, decreaseQuantity, total } = useContext(CartContext);
 
-    const decreaseCount = (id) => {
-        const newCart = cart.map((pizza) => {
-            if (pizza.id === id) {
-                return { ...pizza, count: pizza.count - 1 };
-            }
-            return pizza;
-        })
-            .filter((pizza) => pizza.count > 0);
-        setCart(newCart);
-    };
-
-    const total = cart.reduce((acumulador, pizza) => acumulador + (pizza.price * pizza.count), 0);
-        return (
-        <div className="container mt-5">
-            <h2 className="mb-4">Detalles del pedido</h2>
-            {cart.map((pizza) => (
-                <div key={pizza.id} className="d-flex justify-content-between align-items-center mb-3 p-2 border rounded">
-                    <div className="d-flex align-items-center">
-                        <img src={pizza.img} alt={pizza.name} style={{ width: '50px', marginRight: '10px' }} />
-                        <h5 className="mb-0 text-capitalize">{pizza.name}</h5>
-                    </div>
-
-                    <div className="d-flex align-items-center">
-                        <strong className="me-3">${formatNumber(pizza.price)}</strong>
-
-                        <Button variant="outline-danger" size="sm" onClick={() => decreaseCount(pizza.id)}>-</Button>
-                        <strong className="mx-2">{pizza.count}</strong>
-                        <Button variant="outline-primary" size="sm" onClick={() => increaseCount(pizza.id)}>+</Button>
-                    </div>
-
-                </div>
-            ))}
-
-            <div className="mt-4">
-                <h3>Total: ${formatNumber(total)}</h3>
-                <Button variant="dark" className="mt-2">Pagar</Button>
+  return (
+    <div className="container mt-5">
+      <h2>Detalles del pedido:</h2>
+      
+      {/* Si el carrito está vacío, mostramos un mensaje */}
+      {cart.length === 0 ? (
+        <p className="mt-4">El carrito está vacío. ¡Agrega unas ricas pizzas!</p>
+      ) : (
+        cart.map((pizza) => (
+          <div key={pizza.id} className="d-flex justify-content-between align-items-center mb-3 p-2 border rounded">
+            <div className="d-flex align-items-center">
+              <img src={pizza.img} alt={pizza.name} style={{ width: '60px', borderRadius: '5px', marginRight: '15px' }} />
+              <h5 className="text-capitalize mb-0">{pizza.name}</h5>
             </div>
+            
+            <div className="d-flex align-items-center">
+              <h5 className="mb-0 me-4">${(pizza.price * pizza.count).toLocaleString("es-CL")}</h5>
+              <button className="btn btn-outline-danger btn-sm px-3" onClick={() => decreaseQuantity(pizza.id)}>-</button>
+              <span className="mx-3 fs-5">{pizza.count}</span>
+              <button className="btn btn-outline-primary btn-sm px-3" onClick={() => increaseQuantity(pizza.id)}>+</button>
+            </div>
+          </div>
+        ))
+      )}
 
-        </div>
-    );
+      <h3 className="mt-4">Total: ${total.toLocaleString("es-CL")}</h3>
+      <button className="btn btn-dark mt-3 px-4">Pagar</button>
+    </div>
+  );
 };
 
 export default Cart;

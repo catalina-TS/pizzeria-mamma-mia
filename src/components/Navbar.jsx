@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import {CartContext} from '../context/CartContext';
 
 const Navbar = () => {
 
-  const total = 19190;
+  const { total } = useContext(CartContext);
   const token = false;
 
   return (

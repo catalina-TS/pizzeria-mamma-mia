@@ -1,38 +1,36 @@
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import {formatNumber} from '../utils/formatNumber';
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
 
-const CardPizza = ({name, price, ingredients, img}) => {
+const CardPizza = ({ id, name, price, desc, ingredients, img }) => {
+  
+  const { addToCart } = useContext(CartContext);
+
   return (
-    <Card className="w-100">
-      <Card.Img 
-  variant="top" 
-  src={img} 
-  style={{ height: '200px', objectFit: 'cover' }} 
-/>
-      <Card.Body>
-        <Card.Title>Pizza {name}</Card.Title>
+    <div className="card">
+      <img src={img} className="card-img-top" alt={name} style={{ height: '200px', objectFit: 'cover' }} />
+      <div className="card-body">
+        <h4 className="card-title text-capitalize">Pizza {name}</h4>
         <hr />
-
-        <Card.Text className="text-center">
-          <span style= {{ fontSize: '18px', fontWeight: 'bold'}}>Ingredientes:</span>
-          <br />
-          <ul style= {{ listStyle: 'none', padding: 0, fontSize: '12px'}}>
-            {ingredients.map((ingredient, index) =>(<li key={index}>🍕 {ingredient}</li>
+        <p className="card-text text-center text-muted">Ingredientes:</p>
+        <ul className="text-center list-unstyled">
+          {ingredients?.map((ingredient, i) => (
+            <li key={i}>🍕 {ingredient}</li>
           ))}
-          </ul>
-          </Card.Text>
-
-          <hr />
-          <Card.Text className="text-center">
-            <strong>Precio: ${formatNumber(price)}</strong>
-          </Card.Text>
-          <div className="d-flex justify-content-between">
-            <Button variant="outline-dark">Ver Más 👀</Button>
-            <Button variant= "dark">Añadir 🛒 </Button>
-          </div>
-      </Card.Body>
-    </Card>
+        </ul>
+        <hr />
+        <h4 className="text-center pb-3">Precio: ${price.toLocaleString("es-CL")}</h4>
+        <div className="d-flex justify-content-around">
+          <button className="btn btn-outline-dark">Ver Más 👀</button>
+          <button 
+            className="btn btn-dark" 
+            onClick={() => addToCart({ id, name, price, desc, img, ingredients })}
+          >
+            Añadir 🛒
+          </button>
+          
+        </div>
+      </div>
+    </div>
   );
 };
 
