@@ -1,53 +1,64 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import {CartContext} from '../context/CartContext';
+import { useContext, useState } from 'react';
+import { CartContext } from '../context/CartContext';
 
 const Navbar = () => {
-
   const { total } = useContext(CartContext);
   const token = false;
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
 
-        <Link className="navbar-brand" to="/">Pizzería Mamma Mia!</Link>
-        
-        <div className="collapse navbar-collapse d-flex justify-content-between">
-          <div className="navbar-nav">
-            
-            <Link to="/" className="btn btn-outline-light text-white border-0 me-2">
+        <Link className="navbar-brand" to="/" onClick={closeMenu}>
+          Pizzería Mamma Mia!
+        </Link>
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className={`collapse navbar-collapse ${menuOpen ? 'show' : ''}`}>
+          <div className="navbar-nav me-auto mt-2 mt-lg-0">
+
+            <Link to="/" className="btn btn-outline-light text-white border-0 me-2 mb-1" onClick={closeMenu}>
               🍕 Inicio
             </Link>
-            
 
             {token ? (
               <>
-                <Link to="/profile" className="btn btn-outline-light text-white border-0 me-2">
+                <Link to="/profile" className="btn btn-outline-light text-white border-0 me-2 mb-1" onClick={closeMenu}>
                   🔓 Perfil
                 </Link>
-
-                <button className="btn btn-outline-light text-white border-0 me-2">
+                <button className="btn btn-outline-light text-white border-0 me-2 mb-1" onClick={closeMenu}>
                   🔒 Cerrar Sesión
                 </button>
               </>
             ) : (
               <>
-                <Link to="/login" className="btn btn-outline-light text-white border-0 me-2">
+                <Link to="/login" className="btn btn-outline-light text-white border-0 me-2 mb-1" onClick={closeMenu}>
                   🔐 Iniciar Sesión
                 </Link>
-                <Link to="/register" className="btn btn-outline-light text-white border-0 me-2">
-                  🔐 Registrarse
+                <Link to="/register" className="btn btn-outline-light text-white border-0 me-2 mb-1" onClick={closeMenu}>
+                  📝 Registrarse
                 </Link>
               </>
             )}
           </div>
-          
-          <Link to="/cart" className="btn btn-outline-info">
+
+          <Link to="/cart" className="btn btn-outline-info mt-2 mt-lg-0" onClick={closeMenu}>
             🛒 Total: ${total.toLocaleString("es-CL")}
           </Link>
-          
         </div>
+
       </div>
     </nav>
   );
