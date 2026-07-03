@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext';
 
 const Navbar = () => {
   const { total } = useContext(CartContext);
-  const token = false;
+  const { token, logout } = useContext(UserContext);
   const [menuOpen, setMenuOpen] = useState(false);
-
   const closeMenu = () => setMenuOpen(false);
+  const handleLogout = () => {
+    logout();      
+    closeMenu();   
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -32,13 +36,12 @@ const Navbar = () => {
             <Link to="/" className="btn btn-outline-light text-white border-0 me-2 mb-1" onClick={closeMenu}>
               🍕 Inicio
             </Link>
-
             {token ? (
               <>
                 <Link to="/profile" className="btn btn-outline-light text-white border-0 me-2 mb-1" onClick={closeMenu}>
                   🔓 Perfil
                 </Link>
-                <button className="btn btn-outline-light text-white border-0 me-2 mb-1" onClick={closeMenu}>
+                <button className="btn btn-outline-light text-white border-0 me-2 mb-1" onClick={handleLogout}>
                   🔒 Cerrar Sesión
                 </button>
               </>

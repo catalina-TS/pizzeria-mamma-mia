@@ -1,8 +1,8 @@
+import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 const CardPizza = ({ id, name, price, desc, ingredients, img }) => {
-  
   const { addToCart } = useContext(CartContext);
 
   return (
@@ -19,20 +19,24 @@ const CardPizza = ({ id, name, price, desc, ingredients, img }) => {
         </ul>
         <hr />
         <h4 className="text-center pb-3">Precio: ${price.toLocaleString("es-CL")}</h4>
+        
         <div className="d-flex justify-content-around">
-          <button className="btn btn-outline-dark">Ver Más 👀</button>
+          
+          <Link to={`/pizza/${id}`} className="btn btn-outline-dark">
+            Ver Más 👀
+          </Link>
+          
           <button 
             className="btn btn-dark" 
             onClick={() => addToCart({ id, name, price, desc, img, ingredients })}
           >
             Añadir 🛒
           </button>
-          
         </div>
+
       </div>
     </div>
   );
 };
 
 export default CardPizza;
-
