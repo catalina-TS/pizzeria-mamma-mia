@@ -1,40 +1,37 @@
-import { useState } from 'react';
+import { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 const Register = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const validarDatos = (e) => {
+  const { register } = useContext(UserContext);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
 
     if (!email || !password || !confirmPassword) {
-      setError('Todos los campos son obligatorios.');
+      alert("Todos los campos son obligatorios");
       return;
     }
     if (password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres.');
+      alert("La contraseña debe tener al menos 6 caracteres");
       return;
     }
     if (password !== confirmPassword) {
-      setError('Las contraseñas no coinciden.');
+      alert("Las contraseñas no coinciden");
       return;
     }
 
-    setSuccess('¡Registro exitoso!');
+    await register(email, password);
+    alert("¡Registro completado con éxito!");
   };
 
   return (
     <div className="container mt-5">
       <h2>Registro</h2>
-      <form onSubmit={validarDatos}>
-        {error && <p className="text-danger">{error}</p>}
-        {success && <p className="text-success">{success}</p>}
-
+      <form onSubmit={handleSubmit}>
         <div className="form-group mb-3">
           <label>Email</label>
           <input
@@ -44,7 +41,6 @@ const Register = () => {
             value={email}
           />
         </div>
-
         <div className="form-group mb-3">
           <label>Contraseña</label>
           <input
@@ -54,9 +50,8 @@ const Register = () => {
             value={password}
           />
         </div>
-
         <div className="form-group mb-3">
-          <label>Confirmar contraseña</label>
+          <label>Confirmar Contraseña</label>
           <input
             type="password"
             className="form-control"
@@ -64,8 +59,9 @@ const Register = () => {
             value={confirmPassword}
           />
         </div>
-
-        <button type="submit" className="btn btn-primary">Registrar</button>
+        <button type="submit" className="btn btn-dark">
+          Registrarse
+        </button>
       </form>
     </div>
   );

@@ -16,34 +16,36 @@ const App = () => {
   const { token } = useContext(UserContext);
 
   return (
-    <div> 
-      <NavbarApp /> 
-      
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/pizza/:id" element={<Pizza />} />
-        
-        <Route 
-          path="/profile" 
-          element={token ? <Profile /> : <Navigate to="/login" />} 
-        />
-        
-        <Route 
-          path="/login" 
-          element={token ? <Navigate to="/" /> : <Login />} 
-        />
-        
-        <Route 
-          path="/register" 
-          element={token ? <Navigate to="/" /> : <Register />} 
-        />
-        
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      
+    <div className="d-flex flex-column min-vh-100">
+      <NavbarApp />
+
+      <div className="flex-grow-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/pizza/:id" element={<Pizza />} />
+
+          <Route
+            path="/profile"
+            element={token ? <Profile /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/login"
+            element={token ? <Navigate to="/" /> : <Login />}
+          />
+
+          <Route
+            path="/register"
+            element={token ? <Navigate to="/" /> : <Register />}
+          />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+
       <Footer />
-    </div> 
+    </div>
   );
 }; 
 
