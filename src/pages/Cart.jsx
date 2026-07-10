@@ -35,16 +35,16 @@ const Cart = () => {
         <p className="mt-4">El carrito está vacío. ¡Agrega unas ricas pizzas!</p>
       ) : (
         cart.map((pizza) => (
-          <div key={pizza.id} className="d-flex justify-content-between align-items-center mb-3 p-2 border rounded">
+          <div key={pizza.id} className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 p-2 border rounded">
             <div className="d-flex align-items-center">
-              <img src={pizza.img} alt={pizza.name} style={{ width: '60px' }} />
-              <h5 className="ms-3 text-capitalize">{pizza.name}</h5>
+              <img src={pizza.img} alt={pizza.name} style={{ width: '60px', height: '60px', objectFit: 'cover' }} className="flex-shrink-0 rounded" />
+              <h5 className="ms-3 text-capitalize mb-0">{pizza.name}</h5>
             </div>
 
-            <div className="d-flex align-items-center">
-              <h5 className="me-3">${(pizza.price * pizza.count).toLocaleString("es-CL")}</h5>
+            <div className="d-flex align-items-center gap-2">
+              <h5 className="mb-0">${(pizza.price * pizza.count).toLocaleString("es-CL")}</h5>
               <button className="btn btn-outline-danger btn-sm" onClick={() => decreaseQuantity(pizza.id)}>-</button>
-              <span className="mx-2">{pizza.count}</span>
+              <span>{pizza.count}</span>
               <button className="btn btn-outline-primary btn-sm" onClick={() => increaseQuantity(pizza.id)}>+</button>
             </div>
           </div>
